@@ -14,14 +14,18 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      releases: write
-      git:
-        tags: write
+      contents: write
     steps:
 
       - name: Checkout code
         uses: actions/checkout@v4
+      
+      - name: Downloads artifacts
+        run: |
+          apt install curl jq -y
+          export RELEASE_VERSION=$(cat src/helpers/__version__.py | awk -F\"__version__ =\" {'print \$2'} | tr -d '[\"'\\'' '^',]')
+          echo "Name ${{ github.ref_name }}. Version $RELEASE_VERSION"
+          touch test.txt
 
       - name: Create tag
         uses: actions/github-script@v7
@@ -34,13 +38,6 @@ jobs:
               sha: context.sha
             })
 
-#      - name: Downloads artifacts
-#        run: |
-#          apt install curl jq -y
-#          export RELEASE_VERSION=$(cat src/helpers/__version__.py | awk -F\"__version__ =\" {'print \$2'} | tr -d '[\"'\\'' '^',]')
-#          echo "Name ${{ github.ref_name }}. Version $RELEASE_VERSION"
-#          touch test.txt
-#
 #      - name: Release
 #        uses: softprops/action-gh-release@v2
 #        with:
