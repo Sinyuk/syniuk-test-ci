@@ -22,8 +22,7 @@ jobs:
 
       - name: Downloads artifacts
         run: |
-          ls -la
-          "export RELEASE_VERSION=$(cat src/helpers/__version__.py | awk -F\"__version__ =\" {'print \$2'} | tr -d \'[\"'\\'' '^',]\')"
+          RELEASE_VERSION=$(awk -F'__version__ =' '{print $2}' src/helpers/__version__.py| tr -d "[] '\"")
           echo "Name ${{ github.ref_name }}. Version $RELEASE_VERSION"
           touch test.txt
 
