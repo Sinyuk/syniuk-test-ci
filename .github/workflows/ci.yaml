@@ -19,11 +19,11 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Downloads artifacts
         run: |
           ls -la
-          export RELEASE_VERSION="$(cat src/helpers/__version__.py | awk -F\"__version__ =\" {'print \$2'} | tr -d '[\"'\\'' '^',]')"
+          "export RELEASE_VERSION=$(cat src/helpers/__version__.py | awk -F\"__version__ =\" {'print \$2'} | tr -d \'[\"'\\'' '^',]\')"
           echo "Name ${{ github.ref_name }}. Version $RELEASE_VERSION"
           touch test.txt
 
