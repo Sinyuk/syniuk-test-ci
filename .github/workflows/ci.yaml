@@ -51,5 +51,4 @@ jobs:
          prerelease: false
          draft: false
          make_latest: true
-         with:
-           files: test.txt
+         files: test.txt
