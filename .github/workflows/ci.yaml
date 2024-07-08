@@ -27,6 +27,7 @@ jobs:
       - name: Downloads artifacts
         run: |
           touch test.txt
+          echo "Some text" >> test.txt
 
       - name: Create tag
         uses: actions/github-script@v7
